@@ -1,4 +1,3 @@
-
 package uk.ac.westminster.products_api;
 
 import org.springframework.stereotype.Service;
@@ -28,13 +27,21 @@ public class ProductService {
                 .findFirst();
     }
 
-    public void deleteProduct(Long id) {
-        products.removeIf(p -> p.getId().equals(id));
+    public ProductService() {
+
+        products.add(new DigitalProduct(
+                1L, "Java Programming Ebook", 19.99,
+                "https://example.com/java-ebook", 25.5
+        ));
+
+        products.add(new PhysicalProduct(
+                2L, "Laptop", 999.99,
+                2.5, "35 x 25 x 2 cm"
+        ));
+        nextId = 3L;
     }
 
-    public List<Product> findByName(String name) {
-        return products.stream()
-                .filter(p -> p.getName().contains(name))
-                .toList();
+    public void deleteProduct(Long id) {
+        products.removeIf(p -> p.getId().equals(id));
     }
 }
